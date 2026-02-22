@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importing Bootstrap SCSS file. */
+@use "bootstrap/scss/bootstrap";
+
+:root{
+    --bg-primary: #f0f3fa;
+    --bg-secondary: #d5deef;
+    --bg-dark: #395886;
+    --bg-light: #628ecb;
+    --text-primary: #292828;
+    --text-secondary: #d5deef;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// form error message
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}

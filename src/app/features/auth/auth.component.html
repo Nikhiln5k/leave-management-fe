@@ -1,0 +1,34 @@
+<section>
+  <div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" formControlName="email" />
+        @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+          <small class="error-message">Please enter a valid email.</small>
+        }
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          formControlName="password"
+        />
+        @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <small class="error-message">Minimum required length is 6 characters.</small>
+        }
+      </div>
+      <div class="form-group">
+        <app-button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          [btnClass]="loginForm.invalid ? 'btn-disabled' : 'btn-secondary'"
+        >
+          Login
+        </app-button>
+      </div>
+    </form>
+  </div>
+</section>

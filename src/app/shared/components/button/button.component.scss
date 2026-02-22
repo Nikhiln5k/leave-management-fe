@@ -1,0 +1,26 @@
+.btn-primary,
+.btn-secondary,
+.btn-disabled {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background: var(--text-primary);
+  color: white;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.btn-disabled {
+  background: #b1a3a3;
+  color: var(--text-primary);
+}
