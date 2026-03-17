@@ -3,7 +3,7 @@
 .btn-disabled {
   padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.5rem;
   width: 100%;
   font-weight: bold;
 }
@@ -21,6 +21,6 @@
 }
 
 .btn-disabled {
-  background: #b1a3a3;
+  background: #a39696a1;
   color: var(--text-primary);
 }

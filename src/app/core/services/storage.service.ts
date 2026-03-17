@@ -6,7 +6,7 @@ export class StorageService {
   private readonly token = 'access_token';
 
   setToken(token: string) {
-    localStorage.setItem(this.token, token);
+    localStorage.setItem('access_token', token);
   }
 
   getToken(): string | null {
