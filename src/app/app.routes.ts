@@ -5,16 +5,24 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-    import('./layout/layout.component').then((m) => m.LayoutComponent),
+      import('./layout/layout.component').then((c) => c.LayoutComponent),
     children: [
-      { path: '', redirectTo: 'leave', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./features/dashboard/dashboard.component').then(
+            (c) => c.DashboardComponent,
+          ),
+        canActivate: [authGuard]
+      },
       {
         path: 'leave',
         loadComponent: () =>
           import('./features/leave/leave.component').then(
-            (m) => m.LeaveComponent,
+            (c) => c.LeaveComponent,
           ),
-          canActivate: [authGuard]
+        canActivate: [authGuard],
       },
     ],
   },
