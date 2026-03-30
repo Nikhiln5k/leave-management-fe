@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
@@ -7,6 +7,9 @@ import { ButtonComponent } from '../button/button.component';
   templateUrl: './nav-actions.component.html',
   styleUrl: './nav-actions.component.scss'
 })
-export class NavActionsComponent {
-
+export class NavActionsComponent implements OnInit{
+  @Input() data:any;
+  
+  ngOnInit(): void {
+  }
 }

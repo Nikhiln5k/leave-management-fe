@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -9,6 +9,9 @@ import {
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr'
+import { StorageService } from '../../core/services/storage.service';
+import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-auth',
@@ -24,6 +27,7 @@ export class AuthComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private toastr: ToastrService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,11 +44,25 @@ export class AuthComponent {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe({
       next: (res: any) => {
-        console.log(res)
-        if (res?.data?.token) this.router.navigate(['/']);
+        if (!res?.success) {
+          this.toastr.error(res?.message || 'Login failed');
+          return;
+        }
+        const user = this.authService.user();
+        if (!user) {
+          this.toastr.error('User data not found');
+          return;
+        }
+        const target =
+        user?.role === 'ADMIN'
+          ? '/dashboard/admin'
+          : '/dashboard/employee';
+
+        this.router.navigate([target]);
+        this.toastr.success(res.message || 'Login Success');
       },
       error: (err: any) => {
-        alert(err.message);
+        this.toastr.error(err.statusText);
       },
     });
   }

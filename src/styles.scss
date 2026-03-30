@@ -31,3 +31,10 @@ body {
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
+
+.toast-container {
+  z-index: 999999 !important;
+}
+.toast {
+  opacity: 1 !important;
+}

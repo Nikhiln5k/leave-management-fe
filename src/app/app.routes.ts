@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { roleGuard } from './core/guards/role.guard';
+import { dashboardRedirectGuard } from './core/guards/dashboard-redirect.guard';
 
 export const routes: Routes = [
   {
@@ -10,11 +12,25 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'dashboard',
-        loadComponent: () =>
-          import('./features/dashboard/dashboard.component').then(
-            (c) => c.DashboardComponent,
-          ),
-        canActivate: [authGuard]
+        canActivate: [authGuard, dashboardRedirectGuard],
+        children: [
+          {
+            path: 'admin',
+            loadComponent: () =>
+              import(
+                './features/admin-dashboard/admin-dashboard.component'
+              ).then((c) => c.AdminDashboardComponent),
+            canActivate: [roleGuard(['ADMIN'])],
+          },
+          {
+            path: 'employee',
+            loadComponent: () =>
+              import(
+                './features/employee-dashboard/employee-dashboard.component'
+              ).then((c) => c.EmployeeDashboardComponent),
+            canActivate: [roleGuard(['EMPLOYEE'])],
+          },
+        ],
       },
       {
         path: 'leave',
