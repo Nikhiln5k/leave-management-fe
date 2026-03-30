@@ -23,18 +23,15 @@ export class AuthService {
     this.role.set(role);
   }
 
-  // login(username: string, password: string): Observable<any> {
-  //   return this.http.post<any>('/login', { username, password }).pipe(
-  //     tap((res) => {
-  //       this.storage.setToken(res.data?.token);
-  //       this.setUser(res.data?.user);
-  //       this.setRole(res.data?.user?.[0].role);
-  //       console.log(res)
-  //     }),
-  //   );
-  // }
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>('/login', { username, password })
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<any>('/login', { email, password }).pipe(
+      tap((res) => {
+        const user = res.data?.user[0];
+        this.storage.setToken(res.data?.token);
+        this.setUser(user);
+        this.setRole(user?.role);
+      }),
+    );
   }
 
   logout() {

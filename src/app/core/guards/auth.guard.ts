@@ -7,13 +7,6 @@ export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   const isLoggedIn = !!storageService.getToken()
-  console.log('Auth Guard - Is Logged In:', isLoggedIn);
-  if (!isLoggedIn) {
-    router.navigate(['/auth']);
-    return false;
-  } else {
-    router.navigate(['/']);
-  }
-
-  return true;
+  
+  return isLoggedIn ? true : router.createUrlTree(['/auth']);
 };

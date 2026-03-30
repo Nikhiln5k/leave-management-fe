@@ -23,22 +23,6 @@ import { User } from '../../core/models/user.model';
 export class AuthComponent {
   loginForm: FormGroup;
 
-  role = signal<'ADMIN' | 'EMPLOYEE'>('EMPLOYEE'); 
-  private _user = signal<User | null>(null);
-  user = computed(() => this._user());
-  isLoggedIn = computed(() => !!this._user());
-
-  private storage = inject(StorageService);
-
-  setUser(user: User) {
-    this._user.set(user);
-  }
-
-  setRole(role: 'ADMIN' | 'EMPLOYEE') {
-    this.role.set(role);
-  }
-
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -60,10 +44,22 @@ export class AuthComponent {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe({
       next: (res: any) => {
-        this.storage.setToken(res.data?.token);
-        this.setUser(res.data?.user);
-        this.setRole(res.data?.user?.[0].role);
-        this.toastr.success(res?.message || "Login Success");
+        if (!res?.success) {
+          this.toastr.error(res?.message || 'Login failed');
+          return;
+        }
+        const user = this.authService.user();
+        if (!user) {
+          this.toastr.error('User data not found');
+          return;
+        }
+        const target =
+        user?.role === 'ADMIN'
+          ? '/dashboard/admin'
+          : '/dashboard/employee';
+
+        this.router.navigate([target]);
+        this.toastr.success(res.message || 'Login Success');
       },
       error: (err: any) => {
         this.toastr.error(err.statusText);

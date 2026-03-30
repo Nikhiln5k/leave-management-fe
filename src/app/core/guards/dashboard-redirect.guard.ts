@@ -1,17 +1,28 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '../../features/auth/services/auth.service';
+import { JwtService } from '../services/jwt.service';
 
-export const dashboardRedirectGuard: CanActivateFn = () => {
+export const dashboardRedirectGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  const user = authService.user();
+  const jwtService = inject(JwtService);
+
+  const user = jwtService.decode();
 
   if (!user) {
     return router.createUrlTree(['/auth']);
   }
 
-  return user.role === 'ADMIN'
-    ? router.createUrlTree(['/dashboard/admin'])
-    : router.createUrlTree(['/dashboard/employee']);
+  const target =
+    user.role === 'ADMIN'
+      ? '/dashboard/admin'
+      : '/dashboard/employee';
+
+  // prevent loop
+  if (state.url === target) {
+    return true;
+  }
+
+  return router.createUrlTree([target]);
 };
