@@ -3,17 +3,19 @@
     <aside class="sidebar">
         <h5 class="fw-bold mb-4">Leave Management</h5>
         <div class="d-flex flex-column w-100">
-            <p class="">Dashboard</p>
-            <p class="">Leave</p>
-            <p class="">Calender</p>
+            @for(item of menu; track item) {
+                <p class="" (click) = "navigate(item)">{{item.name}}</p>
+            }
+            <!-- <p class="" (click) = "navigate('dashboard')">Dashboard</p>
+            <p class="" (click) = "navigate('leave')">Leave</p> -->
         </div>
     </aside>
-    <aside class="w-100">
+    <aside class="w-100 d-flex flex-column">
         <div class="header mb-2">
-            <h5 class="fw-bold">Dashboard</h5>
-            <div>
-                <app-nav-actions />
-            </div>
+            <h5 class="fw-bold">{{navDet?.name ?? title}}</h5>
+                <div>
+                    <app-nav-actions [data]="navDet" />
+                </div>
         </div>
         <div class="content">
             <router-outlet />

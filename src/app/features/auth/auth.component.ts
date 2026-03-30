@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -9,6 +9,9 @@ import {
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr'
+import { StorageService } from '../../core/services/storage.service';
+import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-auth',
@@ -20,10 +23,27 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   loginForm: FormGroup;
 
+  role = signal<'ADMIN' | 'EMPLOYEE'>('EMPLOYEE'); 
+  private _user = signal<User | null>(null);
+  user = computed(() => this._user());
+  isLoggedIn = computed(() => !!this._user());
+
+  private storage = inject(StorageService);
+
+  setUser(user: User) {
+    this._user.set(user);
+  }
+
+  setRole(role: 'ADMIN' | 'EMPLOYEE') {
+    this.role.set(role);
+  }
+
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private toastr: ToastrService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,11 +60,13 @@ export class AuthComponent {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe({
       next: (res: any) => {
-        console.log(res)
-        if (res?.data?.token) this.router.navigate(['/']);
+        this.storage.setToken(res.data?.token);
+        this.setUser(res.data?.user);
+        this.setRole(res.data?.user?.[0].role);
+        this.toastr.success(res?.message || "Login Success");
       },
       error: (err: any) => {
-        alert(err.message);
+        this.toastr.error(err.statusText);
       },
     });
   }
