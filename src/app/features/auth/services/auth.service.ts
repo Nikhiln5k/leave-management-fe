@@ -3,10 +3,12 @@ import { User } from '../../../core/models/user.model';
 import { StorageService } from '../../../core/services/storage.service';
 import { Observable, tap } from 'rxjs';
 import { HttpService } from '../../../core/services/http.service';
+import { api_endpoint } from '../../../core/config/apiEndpoints';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   role = signal<'ADMIN' | 'EMPLOYEE'>('EMPLOYEE'); // set after login
+  private apiEndpoint = api_endpoint.employee;
 
   private _user = signal<User | null>(null);
   user = computed(() => this._user());
@@ -24,7 +26,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>('/login', { email, password }).pipe(
+    return this.http.post<any>(this.apiEndpoint.login, { email, password }).pipe(
       tap((res) => {
         const user = res.data?.user[0];
         this.storage.setToken(res.data?.token);
