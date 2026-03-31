@@ -25,8 +25,8 @@ export class AuthService {
     this.role.set(role);
   }
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(this.apiEndpoint.login, { email, password }).pipe(
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(this.apiEndpoint.login, { username, password }).pipe(
       tap((res) => {
         const user = res.data?.user[0];
         this.storage.setToken(res.data?.token);

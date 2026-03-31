@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import enviornment from '../../enviornments/enviornment';
+import enviornment from '../../../enviornments/enviornment';
 
 @Injectable({ providedIn: 'root' })
 export class HttpService {

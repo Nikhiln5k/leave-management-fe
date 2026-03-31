@@ -36,4 +36,9 @@ export class LayoutComponent implements OnInit {
     this.navDet = value;
     this.router.navigate([value.path]);
   }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['auth']);
+  }
 }
