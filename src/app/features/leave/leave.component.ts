@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { HttpService } from '../../core/services/http.service';
 import { ToastrService } from 'ngx-toastr';
+import { api_endpoint } from '../../core/config/apiEndpoints';
 
 @Component({
   selector: 'app-leave',
@@ -35,7 +36,7 @@ export class LeaveComponent implements OnInit {
   }
 
   getAllRequests () {
-    this.httpService.get("/leave/leaveList").subscribe({
+    this.httpService.get(api_endpoint.employee.leaveList).subscribe({
       next: (res: any) => {
         this.toastr.success(res.message)
         console.log(res.data)

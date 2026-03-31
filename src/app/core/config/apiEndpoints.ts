@@ -3,6 +3,7 @@ export const api_endpoint = {
 
     },
     employee: {
-        login: '/employee/api/login',
+        login: 'employee/api/login',
+        leaveList: 'employee/api/leave/leaveList',
     }
 }

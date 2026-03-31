@@ -1,1 +1,68 @@
-<p>employee-dashboard works!</p>
+<section class="employee-dashboard">
+  <div class="summary-row d-flex gap-2 mb-4">
+    <mat-card class="summary-card">
+      <div class="summary-label">Total Leaves</div>
+      <div class="summary-value">{{ totalLeaves }}</div>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <div class="summary-label">Total leave requests</div>
+      <div class="summary-value">{{ totalLeaveRequests() }}</div>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <div class="summary-label">Pending requests</div>
+      <div class="summary-value">{{ pendingRequests() }}</div>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <div class="summary-label">Approved requests</div>
+      <div class="summary-value">{{ approvedRequests() }}</div>
+    </mat-card>
+  </div>
+
+  <mat-card class="table-card p-3">
+    <div class="table-header">
+      <div>
+        <h2>Leave requests</h2>
+        <p class="table-subtitle">Overview of all employee leave submissions</p>
+      </div>
+    </div>
+
+    <table mat-table [dataSource]="leaves()" class="leave-table mat-elevation-z8">
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let leave">{{ leave.employeeName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let leave">{{ leave.type }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Dates">
+        <th mat-header-cell *matHeaderCellDef>Dates</th>
+        <td mat-cell *matCellDef="let leave">{{ leave.from }} – {{ leave.to }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let leave">{{ leave.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let leave">
+          <button mat-stroked-button color="primary" (click)="openModal(leave)">Details</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="empty-state" *ngIf="leaves().length === 0">
+      No leave requests found
+    </div>
+  </mat-card>
+</section>

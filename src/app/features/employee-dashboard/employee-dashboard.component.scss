@@ -1,0 +1,19 @@
+.summary-card {
+  width: 200px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: var(--bg-secondary);
+}
+
+.table-card {
+  background-color: var(--bg-secondary);
+}
+
+.table-card table {
+    background: transparent;
+}
+
+th, td {
+  border-color: #2c2b2b3a;
+}
