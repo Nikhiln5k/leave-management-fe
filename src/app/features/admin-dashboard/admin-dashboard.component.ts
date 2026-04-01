@@ -1,8 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { AdminDashboardService } from './services/adminDashboardService';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'admin-dashboard',
@@ -11,21 +13,31 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss']
 })
-export class AdminDashboardComponent {
-  leaves = signal([
-    { id: 1, employeeName: 'Jane Smith', type: 'Paid leave', from: '2026-04-03', to: '2026-04-05', status: 'Pending' },
-    { id: 2, employeeName: 'John Doe', type: 'Sick leave', from: '2026-03-30', to: '2026-04-01', status: 'Approved' },
-    { id: 3, employeeName: 'Erin Lee', type: 'WFH', from: '2026-04-06', to: '2026-04-06', status: 'Pending' }
-  ]);
+export class AdminDashboardComponent implements OnInit {
+  dashData: any = {};
+  
+  dashService = inject(AdminDashboardService);
+  toastr = inject(ToastrService);
+  
+  ngOnInit(): void {
+    this.getDashboardData();
+  }
 
   displayedColumns = ['employeeName', 'type', 'dates', 'status', 'action'];
 
-  totalEmployees = computed(() => new Set(this.leaves().map(l => l.employeeName)).size);
-  totalLeaveRequests = computed(() => this.leaves().length);
-  pendingRequests = computed(() => this.leaves().filter(l => l.status === 'Pending').length);
-  approvedRequests = computed(() => this.leaves().filter(l => l.status === 'Approved').length);
-
   selected = signal<any | null>(null);
+
+  getDashboardData() {
+    this.dashService.dashboardList().subscribe({
+      next: (res) => {
+        this.dashData = res?.data || [];
+        this.toastr.success(res.message)
+      },
+      error: (err) => {
+        this.toastr.error('Failed to fetch dashboard data.');
+      }
+    })
+  }
 
   openModal(leave: any) {
     this.selected.set(leave);
