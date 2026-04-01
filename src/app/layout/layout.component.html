@@ -5,7 +5,7 @@
         <div class="d-flex flex-column w-100">
             <div>
                 @for(item of menu; track item) {
-                    <p (click) = "navigate(item)">{{item.name}}</p>
+                    <p (click)="navigate(item)">{{item.name}}</p>
                 }
             </div>
             <!-- <p class="" (click) = "navigate('dashboard')">Dashboard</p>

@@ -4,7 +4,6 @@ import { AuthService } from '../../features/auth/services/auth.service';
 import { JwtService } from '../services/jwt.service';
 
 export const dashboardRedirectGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
   const router = inject(Router);
   const jwtService = inject(JwtService);
 
@@ -13,16 +12,11 @@ export const dashboardRedirectGuard: CanActivateFn = (route, state) => {
   if (!user) {
     return router.createUrlTree(['/auth']);
   }
+  if (state.url === '/dashboard') {
+    const target =
+      user.role === 'ADMIN' ? '/dashboard/adminDash' : '/dashboard/empDash';
 
-  const target =
-    user.role === 'ADMIN'
-      ? '/dashboard/admin'
-      : '/dashboard/employee';
-
-  // prevent loop
-  if (state.url === target) {
-    return true;
+    return router.createUrlTree([target]);
   }
-
-  return router.createUrlTree([target]);
+  return true;
 };

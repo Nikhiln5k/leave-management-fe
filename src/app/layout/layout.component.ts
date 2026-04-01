@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { NavActionsComponent } from '../shared/components/nav-actions/nav-actions.component';
+import { JwtService } from '../core/services/jwt.service';
 
 @Component({
   selector: 'app-layout',
@@ -10,15 +11,17 @@ import { NavActionsComponent } from '../shared/components/nav-actions/nav-action
 })
 export class LayoutComponent implements OnInit {
   private router = inject(Router);
+  private jwtService = inject(JwtService);
+  private user = this.jwtService.decode();
   menu = [
     {
       name: "Dashboard",
-      path: "dashboard",
+      path:  this.user.role === "ADMIN" ? '/dashboard/adminDash' : '/dashboard/empDash',
       navBtn: false
     },
     {
       name: "Leaves",
-      path: "leave",
+      path: "leaves",
       navBtn: true
     }
   ]
