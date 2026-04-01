@@ -53,10 +53,7 @@ export class AuthComponent {
           this.toastr.error('User data not found');
           return;
         }
-        const target =
-        user?.role === 'ADMIN'
-          ? '/dashboard/admin'
-          : '/dashboard/employee';
+        const target = user.role === 'ADMIN' ? '/dashboard/adminDash' : '/dashboard/empDash';
 
         this.router.navigate([target]);
         this.toastr.success(res.message || 'Login Success');

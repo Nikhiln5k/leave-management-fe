@@ -5,46 +5,25 @@ import { dashboardRedirectGuard } from './core/guards/dashboard-redirect.guard';
 
 export const routes: Routes = [
   {
-    path: '',
-    loadComponent: () =>
-      import('./layout/layout.component').then((c) => c.LayoutComponent),
+    path: '', loadComponent: () => import('./layout/layout.component').then((c) => c.LayoutComponent),
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
       {
         path: 'dashboard',
+        loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.dash_routes),
         canActivate: [authGuard, dashboardRedirectGuard],
-        children: [
-          {
-            path: 'admin',
-            loadComponent: () =>
-              import(
-                './features/admin-dashboard/admin-dashboard.component'
-              ).then((c) => c.AdminDashboardComponent),
-            canActivate: [roleGuard(['ADMIN'])],
-          },
-          {
-            path: 'employee',
-            loadComponent: () =>
-              import(
-                './features/employee-dashboard/employee-dashboard.component'
-              ).then((c) => c.EmployeeDashboardComponent),
-            canActivate: [roleGuard(['EMPLOYEE'])],
-          },
-        ],
       },
       {
-        path: 'leave',
-        loadComponent: () =>
-          import('./features/leave/leave.component').then(
-            (c) => c.LeaveComponent,
-          ),
+        path: 'leaves',
+        loadChildren: () => import('./features/leaves/leaves.routes').then(m => m.leave_routes),
         canActivate: [authGuard],
-      },
-    ],
+      }
+    ]
+
   },
   {
     path: 'auth',
     loadComponent: () =>
       import('./features/auth/auth.component').then((m) => m.AuthComponent),
   },
-];
+]
