@@ -7,7 +7,7 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { ButtonComponent } from '../../shared/components/button/button.component';
-import { AuthService } from './services/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from '../../core/services/storage.service';

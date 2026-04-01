@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { AdminDashboardService } from './services/adminDashboardService';
 import { ToastrService } from 'ngx-toastr';
+import { AdminDashboardService } from '../../../core/services/admin-dashboard.service';
 
 @Component({
   selector: 'admin-dashboard',
