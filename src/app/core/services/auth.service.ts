@@ -1,9 +1,9 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { User } from '../../../core/models/user.model';
-import { StorageService } from '../../../core/services/storage.service';
+import { User } from '../models/user.model';
+import { StorageService } from './storage.service';
 import { Observable, tap } from 'rxjs';
-import { HttpService } from '../../../core/services/http.service';
-import { api_endpoint } from '../../../core/config/apiEndpoints';
+import { HttpService } from './http.service';
+import { api_endpoint } from '../config/apiEndpoints';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
