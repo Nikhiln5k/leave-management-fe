@@ -1,1 +1,65 @@
-<p>leave-forms works!</p>
+<div
+  class="modal fade"
+  id="leaveModal"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Leave Request</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal">
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form class="d-flex flex-column gap-3">
+
+          <div>
+            <label class="form-label fw-semibold">Start Date</label>
+            <input type="date" class="form-control" />
+          </div>
+
+          <div>
+            <label class="form-label fw-semibold">End Date</label>
+            <input type="date" class="form-control" />
+          </div>
+
+          <div>
+            <label class="form-label fw-semibold">Reason</label>
+            <textarea
+              rows="3"
+              class="form-control"
+              placeholder="Enter reason...">
+            </textarea>
+          </div>
+
+          <div>
+            <label class="form-label fw-semibold">Document</label>
+            <input type="file" class="form-control" />
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <app-button
+          type="button"
+          btnClass="btn-primary"
+          (btnClick)="submit()"
+          data-bs-dismiss="modal"
+        >
+          Submit
+        </app-button>
+      </div>
+
+    </div>
+  </div>
+</div>

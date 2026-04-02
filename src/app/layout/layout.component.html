@@ -1,29 +1,31 @@
 <section>
-    <!-- sidebar -->
-    <aside class="sidebar">
-        <h5 class="fw-bold mb-4">Leave Management</h5>
-        <div class="d-flex flex-column w-100">
-            <div>
-                @for(item of menu; track item) {
-                    <p (click)="navigate(item)">{{item.name}}</p>
-                }
-            </div>
-            <!-- <p class="" (click) = "navigate('dashboard')">Dashboard</p>
+  <!-- sidebar -->
+  <aside class="sidebar">
+    <h5 class="fw-bold mb-4">Leave Management</h5>
+    <div class="d-flex flex-column w-100">
+      <div>
+        @for (item of menu; track item) {
+          <p (click)="navigate(item)">{{ item.name }}</p>
+        }
+      </div>
+      <!-- <p class="" (click) = "navigate('dashboard')">Dashboard</p>
             <p class="" (click) = "navigate('leave')">Leave</p> -->
-            <div class="logout">
-                <p class="cursor-pointer fw-bold" (click)="logout()">Logout <i class="fa-solid fa-power-off text-danger"></i></p>
-            </div>
-        </div>
-    </aside>
-    <aside class="w-100 d-flex flex-column">
-        <div class="header mb-2">
-            <h5 class="fw-bold">{{navDet?.name ?? title}}</h5>
-                <div>
-                    <app-nav-actions [data]="navDet" />
-                </div>
-        </div>
-        <div class="content">
-            <router-outlet />
-        </div>
-    </aside>
+      <div class="logout">
+        <p class="cursor-pointer fw-bold" (click)="logout()">
+          Logout <i class="fa-solid fa-power-off text-danger"></i>
+        </p>
+      </div>
+    </div>
+  </aside>
+  <aside class="w-100 d-flex flex-column">
+    <div class="header mb-2">
+      <h5 class="fw-bold">{{ navDet?.name ?? title }}</h5>
+      <div>
+        <app-nav-actions [data]="navDet" />
+      </div>
+    </div>
+    <div class="content">
+      <router-outlet />
+    </div>
+  </aside>
 </section>

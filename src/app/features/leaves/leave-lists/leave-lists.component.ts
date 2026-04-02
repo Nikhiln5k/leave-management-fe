@@ -28,7 +28,7 @@ export class LeaveListsComponent implements OnInit {
   leaveRequests: any[] = [];
   displayedColumns: string[] = ['type', 'dates', 'status'];
   ngOnInit(): void {
-    // this.getAllRequests();
+    this.getAllRequests();
   }
 
   getAllRequests() {
