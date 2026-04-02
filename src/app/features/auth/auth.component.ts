@@ -10,8 +10,6 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr'
-import { StorageService } from '../../core/services/storage.service';
-import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-auth',
@@ -22,7 +20,7 @@ import { User } from '../../core/models/user.model';
 })
 export class AuthComponent {
   loginForm: FormGroup;
-
+  showPassword = false;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -34,7 +32,9 @@ export class AuthComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
-
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
   onSubmit() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();

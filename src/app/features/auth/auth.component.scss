@@ -47,3 +47,35 @@ form {
   outline: none;
   border-bottom: 1px solid var(--text-primary);
 }
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 35px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+/* Remove white background from autofill */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+
+  -webkit-text-fill-color: var(--text-secondary) !important;
+  caret-color: var(--text-secondary);
+
+  transition: background-color 9999s ease-in-out 0s;
+}
