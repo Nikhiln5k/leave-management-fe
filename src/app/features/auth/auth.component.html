@@ -4,29 +4,19 @@
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" id="email" name="email" formControlName="email" />
-        <small [ngClass]="
-            'error-message' +
-            (loginForm.get('email')?.invalid && loginForm.get('email')?.touched
-              ? ' visible'
-              : ' invisible')
-          ">Please enter a valid email.</small>
-        <!-- @if(loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-          <small class="error-message">Please enter a valid email.</small>
-        } -->
+        <small [ngClass]="'error-message' + (loginForm.get('email')?.invalid && loginForm.get('email')?.touched ? ' visible' : ' invisible')">Please enter a valid email.</small>
       </div>
-      <div class="form-group">
+      <div class="form-group password-field">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" formControlName="password" />
-        <small [ngClass]="
-            'error-message' +
-            (loginForm.get('password')?.invalid &&
-            loginForm.get('password')?.touched
-              ? ' visible'
-              : ' invisible')
-          ">Minimum required length is 6 characters.</small>
-        <!-- @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
-          <small class="error-message">Minimum required length is 6 characters.</small>
-        } -->
+        <div class="password-wrapper">
+          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" />
+          <span class="eye-icon" (click)="togglePassword()">
+            <i [class]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+          </span>
+        </div>
+        <small [ngClass]="'error-message' + (loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? ' visible' : ' invisible')">
+          Minimum required length is 6 characters.
+        </small>
       </div>
       <div class="form-group">
         <app-button type="submit" [disabled]="loginForm.invalid"
