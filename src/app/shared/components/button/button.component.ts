@@ -11,12 +11,12 @@ export class ButtonComponent {
   @Input() disabled = false;
   @Input() btnClass = 'btn-primary';
 
-  @Output() click = new EventEmitter<Event>();
+  @Output() btnClick = new EventEmitter<Event>();
   onClick(event: Event) {
     if (this.disabled) {
       event.preventDefault();
       return;
     }
-    this.click.emit(event);
+    this.btnClick.emit(event);
   }
 }

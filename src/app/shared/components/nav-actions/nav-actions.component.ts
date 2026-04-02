@@ -1,15 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
+import { LeaveFormsComponent } from '../../../features/leaves/leave-forms/leave-forms.component';
 
 @Component({
   selector: 'app-nav-actions',
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, LeaveFormsComponent],
   templateUrl: './nav-actions.component.html',
-  styleUrl: './nav-actions.component.scss'
 })
-export class NavActionsComponent implements OnInit{
-  @Input() data:any;
-  
-  ngOnInit(): void {
-  }
+export class NavActionsComponent {
+  @Input() data: any;
 }
