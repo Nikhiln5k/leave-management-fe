@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { NavActionsComponent } from '../shared/components/nav-actions/nav-actions.component';
 import { JwtService } from '../core/services/jwt.service';
+import { MenuItem } from './layout.interface';
 
 @Component({
   selector: 'app-layout',
@@ -13,18 +14,20 @@ export class LayoutComponent implements OnInit {
   private router = inject(Router);
   private jwtService = inject(JwtService);
   private user = this.jwtService.decode();
-  menu = [
-    {
-      name: "Dashboard",
-      path:  this.user.role === "ADMIN" ? '/dashboard/adminDash' : '/dashboard/empDash',
-      navBtn: false
-    },
-    {
-      name: "Leaves",
-      path: "leaves",
-      navBtn: true
-    }
-  ]
+  menu: MenuItem[] = this.user.menus || [];
+  // menu = [
+  //   {
+  //     name: "Dashboard",
+  //     path:  this.user.roleName === "ADMIN" ? '/dashboard/adminDash' : '/dashboard/empDash',
+  //     navBtn: false
+  //   },
+  //   {
+  //     name: "Leaves",
+  //     path: "leaves",
+  //     navBtn: true
+  //   }
+  // ]
+
   navDet: any;
   title: string | undefined;
   path: string | undefined;

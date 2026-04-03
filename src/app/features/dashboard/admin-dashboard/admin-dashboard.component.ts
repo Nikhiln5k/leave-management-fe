@@ -34,7 +34,7 @@ export class AdminDashboardComponent implements OnInit {
         this.toastr.success(res.message)
       },
       error: (err) => {
-        this.toastr.error('Failed to fetch dashboard data.');
+        this.toastr.error(err.error.message ?? 'Failed to fetch dashboard data');
       }
     })
   }

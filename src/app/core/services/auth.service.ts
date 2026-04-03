@@ -31,7 +31,7 @@ export class AuthService {
         const user = res.data?.user[0];
         this.storage.setToken(res.data?.token);
         this.setUser(user);
-        this.setRole(user?.role);
+        this.setRole(user?.roleName);
       }),
     );
   }
