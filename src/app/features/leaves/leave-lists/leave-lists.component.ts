@@ -35,7 +35,6 @@ export class LeaveListsComponent implements OnInit {
     this.httpService.get(api_endpoint.employee.leaveList).subscribe({
       next: (res: any) => {
         this.toastr.success(res.message);
-        console.log(res.data);
         this.leaveRequests = res.data;
       },
       error: (err: any) => {

@@ -19,16 +19,16 @@
 
       <!-- Body -->
       <div class="modal-body">
-        <form class="d-flex flex-column gap-3">
+        <form [formGroup]="requestFrom" class="d-flex flex-column gap-3">
 
           <div>
             <label class="form-label fw-semibold">Start Date</label>
-            <input type="date" class="form-control" />
+            <input type="date" class="form-control" formControlName="startDate" />
           </div>
 
           <div>
             <label class="form-label fw-semibold">End Date</label>
-            <input type="date" class="form-control" />
+            <input type="date" class="form-control" formControlName="endDate" />
           </div>
 
           <div>
@@ -36,13 +36,14 @@
             <textarea
               rows="3"
               class="form-control"
+              formControlName="reason"
               placeholder="Enter reason...">
             </textarea>
           </div>
 
           <div>
             <label class="form-label fw-semibold">Document</label>
-            <input type="file" class="form-control" />
+            <input type="file" class="form-control" (change)="onFileChange($event)" />
           </div>
 
         </form>

@@ -5,7 +5,7 @@
     <div class="d-flex flex-column w-100">
       <div>
         @for (item of menu; track item) {
-          <p (click)="navigate(item)">{{ item.name }}</p>
+          <p (click)="navigate(item)">{{ item.menuName }}</p>
         }
       </div>
       <!-- <p class="" (click) = "navigate('dashboard')">Dashboard</p>
@@ -19,7 +19,7 @@
   </aside>
   <aside class="w-100 d-flex flex-column">
     <div class="header mb-2">
-      <h5 class="fw-bold">{{ navDet?.name ?? title }}</h5>
+      <h5 class="fw-bold">{{ navDet?.menuName ?? title }}</h5>
       <div>
         <app-nav-actions [data]="navDet" />
       </div>
