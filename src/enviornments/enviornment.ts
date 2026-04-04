@@ -1,3 +1,3 @@
 export default {
-    apiUrl: "http://localhost:5100"
-}
+  apiUrl: 'https://leave-management-be-production.up.railway.app',
+};
