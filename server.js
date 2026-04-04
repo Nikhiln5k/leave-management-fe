@@ -3,14 +3,15 @@ const path = require('path');
 
 const app = express();
 
-const PORT = 6000;
+const PORT = process.env.PORT || 6000;
+const distPath = path.join(__dirname, 'dist/leave-management-fe/browser');
 
-app.use(express.static(path.join(__dirname, 'dist/leave-management-fe')));
+app.use(express.static(distPath));
 
-app.get((req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/leave-management-fe/browser/index.html'));
+app.use((req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.info(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
